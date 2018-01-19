@@ -11,7 +11,7 @@
 #include "RPLIDAR.h"
 
 // Tache du RPLIDAR
-void StartLIDARTask(void const * argument)
+void StartRPLIDARTask(void const * argument)
 {
 	// Initialisation
 
