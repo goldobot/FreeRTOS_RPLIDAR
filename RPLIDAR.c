@@ -156,7 +156,24 @@ void decodage_express_scan (uint8_t* t)
 	// celle-ci est composée d'un entête de quatre octets suivie de cinq blocs de données de même structure, contenant
 	// deux échantillons de distance chacun.
 
-	struct trame_express *f = f;	// On va mapper f sur une structure pour faciliter le décodage
+	struct trame_express *f = t;	// On va mapper f sur une structure pour faciliter le décodage
 
+	// Vérifier la synchro:
+	if ((f->sync1 == 0xA) && (f->sync2 == 0x5))
+	{
+		// Bonne synchro ! Récupérons le checksum
+		uint8_t cksum = (f->cksum_hi << 4) | f->cksum_lo;
+		// Verification du checksum par rapport au reste de la trame:
+		int k;
+		uint8_t sum = 0;
+		for (k=0; k<84; k++)
+			sum ^= t[k];	// XOR de tous les octets de la trame
 
+		if (sum == cksum)
+		{
+			// checksum valide, on continue avec l'angle de départ
+
+		}
+
+	}
 }
